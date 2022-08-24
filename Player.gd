@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
+const MOUSE_SENSITIVITY = 0.004
 
 # Get the gravity from the project settings to be synced with RigidDynamicBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -16,8 +17,8 @@ func _unhandled_input(event):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
-			eye.rotate_y(-event.relative.x * 0.01)
-			camera.rotate_x(-event.relative.y * 0.01)
+			eye.rotate_y(-event.relative.x * MOUSE_SENSITIVITY)
+			camera.rotate_x(-event.relative.y * MOUSE_SENSITIVITY)
 			#camera.rotation.x = clamp(camera.rotation.x, deg2rad(-30), deg2rad(60))
 
 func _physics_process(delta):
