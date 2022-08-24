@@ -1,3 +1,3 @@
 # Dogotus
 
-There's a dogot among us
+[There's a dogot among us](Dogotus.png)
