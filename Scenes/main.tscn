@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcorqnhplscos"]
+[gd_scene load_steps=8 format=3 uid="uid://dcorqnhplscos"]
 
 [ext_resource type="PackedScene" uid="uid://bdbosp8ss8it3" path="res://Scenes/Player.tscn" id="1_pqg2t"]
 
@@ -14,47 +14,52 @@ sky_material = SubResource("ProceduralSkyMaterial_dwf7j")
 [sub_resource type="Environment" id="Environment_ntsod"]
 background_mode = 2
 sky = SubResource("Sky_rckxv")
+ambient_light_source = 3
+reflected_light_source = 2
 tonemap_mode = 2
 ssr_enabled = true
 ssao_enabled = true
 sdfgi_enabled = true
+sdfgi_y_scale = 0
 glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
+volumetric_fog_temporal_reprojection_amount = 0.65
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1v3g"]
+metallic = 0.75
+roughness = 0.0
+clearcoat_enabled = true
+clearcoat_roughness = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_btse2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_demwr"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5etiq"]
-albedo_color = Color(0, 0.301961, 1, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_sdcps"]
+size = Vector3(2, 1, 2)
 
 [node name="Main" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.720551, 0.248493, -0.647346, 0, 0.93358, 0.358368, 0.693402, 0.258222, -0.672692, 0, 0, 0)
 light_color = Color(1, 0.87451, 0.52549, 1)
+light_energy = 1.75
+light_angular_distance = 2.4
 shadow_enabled = true
+shadow_bias = 0.005
 directional_shadow_max_distance = 250.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ntsod")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(30, 0, 0, 0, 1, 0, 0, 0, 30, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_b1v3g")
 mesh = SubResource("PlaneMesh_btse2")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_demwr")
 
 [node name="Player" parent="." instance=ExtResource("1_pqg2t")]
-
-[node name="The Real Imposter" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.5899, 1.41816, 0.00142447)
-material_override = SubResource("StandardMaterial3D_5etiq")
-mesh = SubResource("CapsuleMesh_sdcps")
