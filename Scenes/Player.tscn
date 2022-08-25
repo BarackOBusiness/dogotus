@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdbosp8ss8it3"]
+
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_bndc4"]
+[ext_resource type="PackedScene" uid="uid://cb74kw51l7id" path="res://Scenes/pause.tscn" id="2_qvkp1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6t6ak"]
+albedo_color = Color(0.929412, 0.780392, 0.407843, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_os6vy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jw1if"]
+albedo_color = Color(1, 0.2, 0.207843, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_toed2"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2fqgg"]
+points = PackedVector3Array(-0.270584, -0.527814, -0.417203, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.292003, -0.807399, 0.262035, 0.348966, 0.622725, -0.332985, -0.482789, 0.594843, 0.0822132, -0.362895, -0.682361, 0.289621, 0.465877, -0.590973, -0.154448, -0.127444, 0.842701, -0.338103, 0.468637, 0.624206, 0.111925, 0.0824326, -0.686655, -0.454816, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, -0.484536, -0.596959, -0.0666045, -0.212928, 0.530382, -0.448781, 0.169708, -0.559129, 0.464159, -0.273363, 0.592268, 0.407754, 0.403392, -0.556566, 0.286114, -0.448741, 0.530443, -0.213023, -0.15506, -0.681684, 0.437656, 0.111579, 0.563059, -0.481177, -0.27975, 0.90857, 0.0532387, 0.315557, -0.498149, -0.387718, 0.265284, -0.878381, -0.188924, 0.265284, 0.878379, -0.188923, -0.158724, -0.939464, 0.174465, 0.0828963, 0.841125, 0.353329, 0.347543, 0.590526, 0.347435, 0.464634, 0.500822, -0.18348, -0.305972, -0.807366, -0.246151, 0.498886, -0.476075, 0.0227381, -0.387693, -0.498227, 0.31559)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkhu2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sf3no"]
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00876, 0)
+script = ExtResource("1_bndc4")
+
+[node name="Tube" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_6t6ak")
+gi_mode = 2
+mesh = SubResource("TorusMesh_os6vy")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_jw1if")
+gi_mode = 2
+mesh = SubResource("CapsuleMesh_toed2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_2fqgg")
+
+[node name="Eye" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502664, 0)
+
+[node name="Visor Frame" type="MeshInstance3D" parent="Eye"]
+transform = Transform3D(0.4, 0, 0, 0, 0.286, 0, 0, 0, 0.286, 0, 0.0618689, -0.381647)
+material_override = SubResource("StandardMaterial3D_qkhu2")
+gi_mode = 2
+mesh = SubResource("BoxMesh_sf3no")
+skeleton = NodePath("../../MeshInstance3D")
+
+[node name="Camera3D" type="Camera3D" parent="Eye"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0829999, -0.25)
+current = true
+fov = 90.0
+
+[node name="PauseMenu" parent="." instance=ExtResource("2_qvkp1")]
