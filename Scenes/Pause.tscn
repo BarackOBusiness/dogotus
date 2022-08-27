@@ -1,0 +1,288 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Theme/Fonts/Lato-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://Scripts/Pause.gd" type="Script" id=2]
+[ext_resource path="res://Shaders/pause.gdshader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/blur = 1.0
+shader_param/brightness = 0.85
+
+[sub_resource type="DynamicFont" id=1]
+size = 22
+font_data = ExtResource( 1 )
+
+[sub_resource type="Theme" id=2]
+default_font = SubResource( 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Pause"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 1.0, 0.85 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Center:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.85 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Center:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "Unpause"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/blur")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:material:shader_param/brightness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Center:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="PauseMenu" type="ColorRect"]
+pause_mode = 2
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 1, 1, 0 )
+script = ExtResource( 2 )
+
+[node name="Center" type="CenterContainer" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource( 2 )
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+margin_left = 576.0
+margin_top = 348.0
+margin_right = 1344.0
+margin_bottom = 732.0
+rect_min_size = Vector2( 768, 384 )
+
+[node name="Margin" type="MarginContainer" parent="Center/Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 761.0
+margin_bottom = 377.0
+custom_constants/margin_right = 16
+custom_constants/margin_left = 16
+custom_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Center/Panel/Margin"]
+margin_left = 16.0
+margin_right = 738.0
+margin_bottom = 354.0
+
+[node name="Label" type="Label" parent="Center/Panel/Margin/VBox"]
+margin_right = 722.0
+margin_bottom = 27.0
+text = "Dogot"
+align = 1
+
+[node name="Separator" type="HSeparator" parent="Center/Panel/Margin/VBox"]
+margin_top = 31.0
+margin_right = 722.0
+margin_bottom = 35.0
+
+[node name="HBox" type="HBoxContainer" parent="Center/Panel/Margin/VBox"]
+margin_top = 39.0
+margin_right = 722.0
+margin_bottom = 109.0
+
+[node name="Buttons" type="VBoxContainer" parent="Center/Panel/Margin/VBox/HBox"]
+margin_right = 90.0
+margin_bottom = 70.0
+
+[node name="ResumeButton" type="Button" parent="Center/Panel/Margin/VBox/HBox/Buttons"]
+margin_right = 90.0
+margin_bottom = 33.0
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="Center/Panel/Margin/VBox/HBox/Buttons"]
+margin_top = 37.0
+margin_right = 90.0
+margin_bottom = 70.0
+text = "Quit"
+
+[node name="MarginContainer2" type="MarginContainer" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 94.0
+margin_right = 98.0
+margin_bottom = 70.0
+custom_constants/margin_right = 2
+custom_constants/margin_left = 2
+
+[node name="VSeparator" type="VSeparator" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 102.0
+margin_right = 106.0
+margin_bottom = 70.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 110.0
+margin_right = 114.0
+margin_bottom = 70.0
+custom_constants/margin_right = 2
+custom_constants/margin_left = 2
+
+[node name="Settings" type="VBoxContainer" parent="Center/Panel/Margin/VBox/HBox"]
+margin_left = 118.0
+margin_right = 722.0
+margin_bottom = 70.0
+size_flags_horizontal = 3
+
+[node name="Sens" type="HBoxContainer" parent="Center/Panel/Margin/VBox/HBox/Settings"]
+margin_right = 604.0
+margin_bottom = 27.0
+
+[node name="Label" type="Label" parent="Center/Panel/Margin/VBox/HBox/Settings/Sens"]
+margin_right = 173.0
+margin_bottom = 27.0
+text = "Mouse Sensitivity"
+
+[node name="HSlider" type="HSlider" parent="Center/Panel/Margin/VBox/HBox/Settings/Sens"]
+margin_left = 177.0
+margin_right = 604.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.001
+step = 0.001
+value = 0.004
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Unpause"
+anims/Pause = SubResource( 4 )
+anims/RESET = SubResource( 5 )
+anims/Unpause = SubResource( 6 )
